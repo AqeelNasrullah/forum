@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
@@ -14,17 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return CategoryResource::collection(Category::latest()->get());
     }
 
     /**
@@ -35,7 +28,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $created = Category::create([
+            'name'                      =>      $request->get('title'),
+            'slug'                      =>      str_slug($request->get('title'))
+        ]);
+        return response('Created', Response::HTTP_CREATED);
     }
 
     /**
@@ -46,18 +43,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        //
+        return new CategoryResource($category);
     }
 
     /**
@@ -69,7 +55,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category->update([
+            'name'              =>      $request->get('title'),
+            'slug'              =>      str_slug($request->get('title'))
+        ]);
+        return response('Updated', Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -80,6 +70,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }

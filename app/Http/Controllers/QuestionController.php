@@ -27,8 +27,8 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        Question::create($request->all());
-        return response(['result' => 'created'], Response::HTTP_CREATED);
+        $created = Question::create($request->all());
+        return response('Created', Response::HTTP_CREATED);
     }
 
     /**
@@ -52,7 +52,7 @@ class QuestionController extends Controller
     public function update(Request $request, Question $question)
     {
         $updated = $question->update($request->all());
-        return response(['result' => $updated], Response::HTTP_ACCEPTED);
+        return response('Updated', Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -64,6 +64,6 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         $question->delete();
-        return response(['result' => 'deleted'], Response::HTTP_NO_CONTENT);
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }
