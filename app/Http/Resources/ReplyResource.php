@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class ReplyResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,9 @@ class CategoryResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'id'                =>      $this->id,
-            'name'             =>      $this->name,
-            'slug'              =>      asset("/api/categories/$this->slug"),
-            'created_at'        =>      $this->created_at
+            'body' => $this->body,
+            'user' => $this->user->name,
+            'created_at' => $this->created_at
         ];
     }
 }
