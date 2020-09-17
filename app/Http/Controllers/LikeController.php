@@ -9,6 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LikeController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth.jwt');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
