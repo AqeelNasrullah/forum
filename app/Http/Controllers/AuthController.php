@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
@@ -15,7 +17,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth.jwt', ['except' => ['login']]);
+        $this->middleware('auth.jwt', ['except' => ['login', 'register']]);
     }
 
     /**
@@ -34,6 +36,11 @@ class AuthController extends Controller
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    public function register(Request $request) {
+        User::create($request->all());
+        return $this->login($request);
     }
 
     /**

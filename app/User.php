@@ -8,6 +8,7 @@ use App\Models\Reply;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
@@ -84,5 +85,10 @@ class User extends Authenticatable implements JWTSubject
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    // Convert password field of user table to encrypted form
+    public function setPasswordAttribute($value) {
+        $this->attributes['password'] = Hash::make($value);
     }
 }
