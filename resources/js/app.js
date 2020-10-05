@@ -11,6 +11,11 @@ window.Vue = require('vue');
 import Vuetify from './src/plugins/vuetify';
 import VueRouter from './src/plugins/router';
 
+import User from './src/helpers/User';
+window.User = User;
+
+console.log(User.getId())
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
