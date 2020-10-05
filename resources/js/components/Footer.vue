@@ -27,7 +27,7 @@
       </v-card-title>
 
       <v-card-text class="py-2 white--text text-center">
-        &copy; {{ new Date().getFullYear() }} — <strong>ABC Forum</strong>
+        &copy; {{ new Date().getFullYear() }} — <strong>ANWESOL Forum</strong>
       </v-card-text>
     </v-card>
   </v-footer>
